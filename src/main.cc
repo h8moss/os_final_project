@@ -1,6 +1,7 @@
-#include <iostream>
+#include "common/program.hh"
 
 int main() {
-  std::cout << "Hello world" << std::endl;
-  return 0;
+  Program program{};
+
+  program.main();
 }
