@@ -16,11 +16,10 @@ include_directories(SYSTEM
   ${CMAKE_SOURCE_DIR}/sys_include
 )
 
-# Debug flags
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -DDEBUG -Wall -Weffc++ -Wextra -Wconversion -Wsign-conversion")
-
 # Sources
-set(SOURCES ${CMAKE_SOURCE_DIR}/src/main.cc)
+set(SOURCES 
+  ./src/main.cc
+)
 
 # Executable
 add_executable(my_os ${SOURCES})
