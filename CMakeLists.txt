@@ -14,6 +14,7 @@ include_directories(
 # Sources
 set(SOURCES 
   ./src/main.cc
+  ./src/common/program.cc
 )
 
 # Executable
