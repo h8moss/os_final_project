@@ -8,12 +8,7 @@ project(my_os VERSION 1.0.0)
 
 # Include
 include_directories(
-  ${CMAKE_SOURCE_DIR}/include
-)
-
-# System include, if needed
-include_directories(SYSTEM
-  ${CMAKE_SOURCE_DIR}/sys_include
+  ./include
 )
 
 # Sources
