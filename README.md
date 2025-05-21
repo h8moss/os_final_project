@@ -1,6 +1,9 @@
 # Proyecto final de Sistemas Operativos
 
 ## Requerimientos
+Los siguientes son los requerimientos minimos del proyecto final de Sistemas Operativos.
+
+### Gestion de procesos
 - [ ] Simula la creación y ejecución de procesos. Muestra el comportamiento de procesos padre e hijo. 
 - [ ] Se espera que el alumno utilice fork() para crear procesos hijos, y exec() para que estos ejecuten otras tareas o programas. El uso de wait() debe servir para que el proceso padre espere a los hijos. 
 - [ ] Además, se pueden emplear señales (kill, SIGSTOP, SIGCONT) para simular la suspensión o reanudación de procesos.
@@ -25,7 +28,34 @@
 - [ ] Desarrolla un sistema de control de usuarios y permisos. Cada archivo debe tener propietario y permisos. Simula el login de usuario y restringe acciones según sus privilegios.
 - [ ] Este módulo simula la existencia de múltiples usuarios en el sistema.
 - [ ] Cada archivo debe tener un propietario y permisos asignados (lectura, escritura, ejecución).
-- [ ] Los alumnos deben simular un inicio de sesión y validar si el usuario actual tiene permiso para realizar
-- [ ] operaciones sobre un archivo.
+- [ ] Los alumnos deben simular un inicio de sesión y validar si el usuario actual tiene permiso para realizar operaciones sobre un archivo.
 - [ ] El usuario 'root' tiene privilegios totales y otro usuario con accesos limitados.
 
+## Instrucciones de compilacion
+Tras descargar el proyecto y encontrarse en la carpeta del proyecto:
+
+1. Asegurarse de tener instalado Cmake, Make y un compilador de C++
+```bash
+$> sudo apt install make cmake g++
+```
+
+2. Crear un directorio "build" y moverse a dicho directorio.
+```bash
+$> mkdir build
+$> cd build
+```
+
+3. Generar los archivos de compilacion.
+```bash
+$> cmake ..
+```
+
+4. Generar el ejecutable.
+```bash
+$> make 
+```
+
+Al terminar, el archivo `my_os` debe de haberse generado en la carpeta build.
+
+## Instrucciones de uso
+TBD
