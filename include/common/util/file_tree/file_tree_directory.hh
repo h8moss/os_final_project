@@ -1,11 +1,13 @@
 #pragma once
 #include "common/util/file_tree/file_tree_node.hh"
+#include <memory>
 #include <vector>
 
 using std::vector;
 
 class FileTreeDirectory : public FileTreeNode {
-  vector<FileTreeNode> children;
+public:
+  vector<std::unique_ptr<FileTreeNode>> children;
 
-  bool isDirectory() override;
+  bool isDirectory() const override;
 };

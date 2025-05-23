@@ -10,5 +10,5 @@ public:
 
   FileTreeNode(string _name);
 
-  virtual bool isDirectory() = 0;
+  virtual bool isDirectory() const = 0;
 };
