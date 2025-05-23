@@ -1,5 +1,6 @@
 #pragma once
 #include "common/modules/fs_module.hh"
+#include "common/util/file_tree/file_tree.hh"
 #include <vector>
 #include <string>
 #include <functional>
