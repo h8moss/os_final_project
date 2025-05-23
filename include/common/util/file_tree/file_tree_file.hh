@@ -5,6 +5,7 @@
 class FileTreeFile : public FileTreeNode {
   std::map<string, string> metadata;
   string contents;
+  FileTreeFile(string _name);
 
   bool isDirectory() const override;
 };

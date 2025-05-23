@@ -1,6 +1,8 @@
 #include "common/program.hh"
 
-void Program::touch(string path) {}
+void Program::touch(string path) {
+    fileTree.createFile(path);
+}
 
 void Program::mkdir(string path) {}
 void Program::cat(string path) {}

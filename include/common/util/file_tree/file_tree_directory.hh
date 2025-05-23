@@ -8,6 +8,7 @@ using std::vector;
 class FileTreeDirectory : public FileTreeNode {
 public:
   vector<std::unique_ptr<FileTreeNode>> children;
+  FileTreeDirectory(string _name);
 
   bool isDirectory() const override;
 };
