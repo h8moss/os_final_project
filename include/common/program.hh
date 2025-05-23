@@ -5,6 +5,9 @@
 #include <functional>
 #include <unordered_map>
 
+using std::vector;
+using std::string;
+
 class Program : public IFSModule {
 public:
   Program();
@@ -28,4 +31,5 @@ public:
 private:
   // Map of command names to their handler functions
   std::unordered_map<std::string, std::function<void(const std::vector<std::string>&)>> commands;
+  FileTree fileTree;
 };

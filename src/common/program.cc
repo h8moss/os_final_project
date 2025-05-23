@@ -20,6 +20,8 @@ Program::Program() {
     {"cd", [this](const vector<string>& args) { cd(args[1]); }}
     // ------------------------------------------
   };
+
+  fileTree = FileTree();
 }
 
 void Program::main() {
