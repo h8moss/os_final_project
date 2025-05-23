@@ -13,8 +13,15 @@ include_directories(
 
 # Sources
 set(SOURCES 
-  ./src/main.cc
+  ./src/common/modules/fs_module.cc
+  ./src/common/util/file_tree/file_tree_directory.cc
+  ./src/common/util/file_tree/file_tree_file.cc
+  ./src/common/util/file_tree/file_tree_node.cc
+  ./src/common/util/file_tree/file_tree.cc
+  ./src/common/util/path/get_path_segments.cc
+  ./src/common/util/user_exception.cc
   ./src/common/program.cc
+  ./src/main.cc
 )
 
 # Executable
