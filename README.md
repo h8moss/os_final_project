@@ -15,10 +15,11 @@ Los siguientes son los requerimientos minimos del proyecto final de Sistemas Ope
 - [ ] La simulación puede hacerse con sleep() y mensajes en consola para representar el cambio de contexto.
 
 ### Sistema de archivos
-- [ ] Implementa un sistema de archivos básico que permita crear, leer, escribir y cerrar archivos. Simula metadatos y estructura jerárquica.
-- [ ] Los alumnos deben poder crear, leer, escribir y cerrar archivos utilizando open(), read(), write() y close().
-- [ ] Además, pueden simular la estructura de un sistema de archivos usando carpetas y metadatos guardados en archivos.
-- [ ] No es necesario implementar un filesystem completo, pero sí se espera una organización clara de los archivos simulados y su contenido.
+- [x] Implementa un sistema de archivos básico que permita crear, leer, escribir y cerrar archivos. Simula metadatos y estructura jerárquica.
+- [x] Los alumnos deben poder crear, leer, escribir y cerrar archivos utilizando open(), read(), write() y close().
+- [x] Además, pueden simular la estructura de un sistema de archivos usando carpetas y metadatos guardados en archivos.
+- [x] No es necesario implementar un filesystem completo, pero sí se espera una organización clara de los archivos simulados y su contenido.
+- [ ] cd command y directorios relativos (./file, ../sibling/)
 
 ### Entrada y salida
 - [ ] Simula entrada/salida de usuario (por teclado y archivo). Imprime mensajes y guarda logs en archivos externos.
