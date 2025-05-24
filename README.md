@@ -19,7 +19,7 @@ Los siguientes son los requerimientos minimos del proyecto final de Sistemas Ope
 - [x] Los alumnos deben poder crear, leer, escribir y cerrar archivos utilizando open(), read(), write() y close().
 - [x] Además, pueden simular la estructura de un sistema de archivos usando carpetas y metadatos guardados en archivos.
 - [x] No es necesario implementar un filesystem completo, pero sí se espera una organización clara de los archivos simulados y su contenido.
-- [ ] cd command y directorios relativos (./file, ../sibling/)
+- [x] cd command y directorios relativos (./file, ../sibling/)
 
 ### Entrada y salida
 - [ ] Simula entrada/salida de usuario (por teclado y archivo). Imprime mensajes y guarda logs en archivos externos.
@@ -63,6 +63,7 @@ Al ejecutar `my_os`, serás recibido con una pantalla donde se pueden introducir
 
 ### Lista de comandos
 
+- exit                      - Exit the application
 - mkdir "path"              - Create a new directory
 - touch "path"              - Create a new file
 - ls "path"                 - List directory contents
