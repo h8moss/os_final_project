@@ -1,6 +1,6 @@
 # Basic cmake config
 cmake_minimum_required(VERSION 3.10)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Project
@@ -13,15 +13,12 @@ include_directories(
 
 # Sources
 set(SOURCES 
-  ./src/common/modules/fs_module.cc
-  ./src/common/util/file_tree/file_tree_directory.cc
-  ./src/common/util/file_tree/file_tree_file.cc
-  ./src/common/util/file_tree/file_tree_node.cc
-  ./src/common/util/file_tree/file_tree.cc
-  ./src/common/util/path/get_path_segments.cc
-  ./src/common/util/user_exception.cc
-  ./src/common/program.cc
+  ./src/modules/file_system/file_system_module.cc
+  ./src/modules/file_system/fs_directory.cc
+  ./src/modules/file_system/fs_file.cc
+  ./src/modules/file_system/fs_node.cc
   ./src/main.cc
+  ./src/program.cc
 )
 
 # Executable

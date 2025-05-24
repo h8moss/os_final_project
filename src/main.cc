@@ -1,7 +1,9 @@
-#include "common/program.hh"
+#include "program.hh"
 
 int main() {
   Program program{};
 
-  program.main();
+  program.run();
+
+  return 0;
 }
