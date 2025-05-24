@@ -36,5 +36,7 @@ public:
   bool rmdir(const string &path);
   string joinPath(const vector<string> &parts);
   void printMetadata(const string &path);
+
+  bool cd(const string &path);
 };
 } // namespace FileSystem

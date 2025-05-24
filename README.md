@@ -58,4 +58,17 @@ $> make
 Al terminar, el archivo `my_os` debe de haberse generado en la carpeta build.
 
 ## Instrucciones de uso
-TBD
+Al ejecutar `my_os`, serás recibido con una pantalla donde se pueden introducir comandos.
+
+### Lista de comandos
+
+- mkdir "path"              - Create a new directory
+- touch "path"              - Create a new file
+- ls "path"                 - List directory contents
+- cat "path"                - Display file contents
+- empty "path"              - Empty a file
+- append "path" "string"    - Append text to a file
+- rm "path"                 - Delete a file
+- rmdir "path"              - Delete an empty directory
+- meta "path"               - Display metadata
+- cd "path"                 - Change current directory to path

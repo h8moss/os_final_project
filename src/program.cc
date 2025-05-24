@@ -26,7 +26,7 @@ vector<string> Program::tokenize(const string &input) const {
 }
 
 void Program::run() {
-  cout << "Simple File System Shell. Type 'exit' to quit." << endl;
+  cout << "Type 'exit' to quit." << endl;
 
   while (true) {
     cout << fs.getCurrentPath() << "> ";
@@ -78,6 +78,8 @@ void Program::run() {
         }
       } else if (command == "meta" && tokens.size() > 1) {
         fs.printMetadata(tokens[1]);
+      } else if (command == "cd" && tokens.size() > 1) {
+        fs.cd(tokens[1]);
       } else {
         cout << "Unknown command or invalid arguments" << endl;
       }

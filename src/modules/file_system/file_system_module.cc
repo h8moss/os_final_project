@@ -203,4 +203,14 @@ void FileSystem::printMetadata(const string &path) {
   cout << "Modified: " << put_time(mod_time, "%Y-%m-%d %H:%M:%S") << endl;
 }
 
+bool FileSystem::cd(const string &path) {
+  Node *target{resolvePath(path)};
+  if (target == nullptr)
+    return false;
+  if (!target->isDirectory())
+    return false;
+  currentDir = static_cast<Directory *>(target);
+  return true;
+}
+
 } // namespace FileSystem
