@@ -1,4 +1,7 @@
 #include "modules/file_system/file_system_module.hh"
+#include "modules/file_system/fs_file.hh"
+#include <algorithm>
+#include <memory>
 
 namespace FileSystem {
 vector<string> FileSystem::splitPath(const string &path) {
@@ -20,13 +23,15 @@ Node *FileSystem::resolvePath(const string &path) {
     return currentDir;
 
   vector<string> parts = splitPath(path);
-  Node *node = (path[0] == '/') ? root : currentDir;
+  Node *node = (path[0] == '/') ? root.get() : currentDir;
 
   for (const string &part : parts) {
     if (part == ".")
       continue;
     if (part == "..") {
-      // TODO: If you have time implement parent dir navigation
+      if (node->getParent()) {
+        node = node->getParent();
+      }
       continue;
     }
 
@@ -43,16 +48,30 @@ Node *FileSystem::resolvePath(const string &path) {
 }
 
 FileSystem::FileSystem() {
-  root = new Directory("");
-  currentDir = root;
+  root = std::make_unique<Directory>("");
+  currentDir = root.get();
 }
 
-FileSystem::~FileSystem() { delete root; }
-
 string FileSystem::getCurrentPath() {
-  // For simplicity, we'll just return the current directory name
-  // TODO: Get proper path
-  return currentDir->name.empty() ? "/" : currentDir->name;
+  vector<string> pathParts;
+  Node *node = currentDir;
+
+  while (node && node != root.get()) {
+    pathParts.push_back(node->name);
+    node = node->getParent();
+  }
+
+  std::reverse(pathParts.begin(), pathParts.end());
+
+  if (pathParts.empty())
+    return "/";
+
+  string path;
+  for (const string &part : pathParts) {
+    path += "/" + part;
+  }
+
+  return path;
 }
 
 bool FileSystem::mkdir(const string &path) {
@@ -69,7 +88,7 @@ bool FileSystem::mkdir(const string &path) {
   if (!parent || !parent->isDirectory())
     return false;
 
-  return parent->addChild(new Directory(dirName));
+  return parent->addChild(std::make_unique<Directory>(dirName, parent));
 }
 
 bool FileSystem::touch(const string &path) {
@@ -86,7 +105,7 @@ bool FileSystem::touch(const string &path) {
   if (!parent || !parent->isDirectory())
     return false;
 
-  return parent->addChild(new File(fileName));
+  return parent->addChild(std::make_unique<File>(fileName, parent));
 }
 
 vector<string> FileSystem::ls(const string &path) {
@@ -149,7 +168,6 @@ bool FileSystem::rm(const string &path) {
 }
 
 bool FileSystem::rmdir(const string &path) {
-  // For simplicity, we'll only allow removing empty directories
   Node *node = resolvePath(path);
   if (!node || !node->isDirectory())
     return false;
@@ -158,20 +176,19 @@ bool FileSystem::rmdir(const string &path) {
   if (!dir->listChildren().empty())
     return false;
 
-  vector<string> parts = splitPath(path);
-  if (parts.empty())
+  Directory *parent = dir->getParent();
+  if (!parent)
+    return false; // Can't remove root
+
+  return parent->removeChild(dir->name);
+}
+
+bool FileSystem::cd(const string &path) {
+  Node *target{resolvePath(path)};
+  if (!target || !target->isDirectory())
     return false;
-
-  string dirName = parts.back();
-  parts.pop_back();
-
-  Directory *parent = static_cast<Directory *>(
-      resolvePath(parts.empty() ? "" : joinPath(parts)));
-
-  if (!parent || !parent->isDirectory())
-    return false;
-
-  return parent->removeChild(dirName);
+  currentDir = static_cast<Directory *>(target);
+  return true;
 }
 
 string FileSystem::joinPath(const vector<string> &parts) {
@@ -201,16 +218,6 @@ void FileSystem::printMetadata(const string &path) {
 
   tm *mod_time = localtime(&node->metadata.modification_time);
   cout << "Modified: " << put_time(mod_time, "%Y-%m-%d %H:%M:%S") << endl;
-}
-
-bool FileSystem::cd(const string &path) {
-  Node *target{resolvePath(path)};
-  if (target == nullptr)
-    return false;
-  if (!target->isDirectory())
-    return false;
-  currentDir = static_cast<Directory *>(target);
-  return true;
 }
 
 } // namespace FileSystem

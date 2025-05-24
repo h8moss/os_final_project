@@ -1,8 +1,10 @@
 #include "modules/file_system/fs_file.hh"
+#include "modules/file_system/fs_directory.hh"
 
 namespace FileSystem {
 
-File::File(const string &name) : Node(name), content("") {}
+File::File(const string &name, Directory *parent)
+    : Node(name, parent), content{""} {}
 
 bool File::isDirectory() const { return false; }
 
