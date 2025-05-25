@@ -1,4 +1,5 @@
 #pragma once
+#include "modules/usuarios/usuarios.h"
 #include <exception>
 #include <iostream>
 #include <string>
