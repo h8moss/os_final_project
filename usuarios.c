@@ -1,68 +1,65 @@
-#include <stdio.h>
-#include <string.h>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
 #include "usuarios.h"
 
-Usuario usuarios[MAX_USUARIOS];
-int total_usuarios = 0;
+std::vector<Usuario> usuarios;
 int usuario_actual = -1;
 
 void cargar_usuarios()
 {
-    FILE *archivo = fopen("usuarios.txt", "r");
+    std::ifstream archivo("usuarios.txt");
     if (!archivo)
     {
-        printf("No se pudo abrir el archivo de usuarios.\n");
+        std::cerr << "No se pudo abrir el archivo de usuarios.\n";
         return;
     }
 
-    total_usuarios = 0;
-    while (total_usuarios < MAX_USUARIOS && fscanf(archivo, "%19s %19s %d",
-                                                   usuarios[total_usuarios].nombre,
-                                                   usuarios[total_usuarios].password,
-                                                   &usuarios[total_usuarios].es_root) == 3)
+    usuarios.clear();
+    Usuario u;
+    while (archivo >> u.nombre >> u.password >> u.es_root)
     {
-        total_usuarios++;
+        usuarios.push_back(u);
     }
 
-    fclose(archivo);
+    archivo.close();
 }
 
-int login()
+bool login()
 {
-    char nombre[20], pass[20];
-    printf("=== Login ===\nUsuario: ");
-    scanf("%19s", nombre);
-    printf("Contraseña: ");
-    scanf("%19s", pass);
+    std::string nombre, pass;
+    std::cout << "=== Login ===\nUsuario: ";
+    std::cin >> nombre;
+    std::cout << "Contraseña: ";
+    std::cin >> pass;
 
-    for (int i = 0; i < total_usuarios; i++)
+    for (size_t i = 0; i < usuarios.size(); ++i)
     {
-        if (strcmp(nombre, usuarios[i].nombre) == 0 &&
-            strcmp(pass, usuarios[i].password) == 0)
+        if (usuarios[i].nombre == nombre && usuarios[i].password == pass)
         {
-            usuario_actual = i;
-            printf("Bienvenido, %s.\n", nombre);
-            return 1;
-        }
-    }
-    printf("Login incorrecto.\n");
-    return 0;
-}
-
-int verificar_permiso(const char *propietario, const char *permiso, const char *usuario_nombre)
-{
-    if (strcmp(usuario_nombre, "root") == 0)
-        return 1; // root tiene acceso total
-
-    if (strcmp(propietario, usuario_nombre) == 0)
-    {
-        if (strcmp(permiso, "lectura") == 0 ||
-            strcmp(permiso, "escritura") == 0 ||
-            strcmp(permiso, "ejecucion") == 0)
-        {
-            return 1;
+            usuario_actual = static_cast<int>(i);
+            std::cout << "Bienvenido, " << nombre << ".\n";
+            return true;
         }
     }
 
-    return 0; // acceso denegado
+    std::cout << "Login incorrecto.\n";
+    return false;
+}
+
+bool verificar_permiso(const std::string &propietario, const std::string &permiso, const std::string &usuario_nombre)
+{
+    if (usuario_nombre == "root")
+        return true;
+
+    if (propietario == usuario_nombre)
+    {
+        if (permiso == "lectura" || permiso == "escritura" || permiso == "ejecucion")
+        {
+            return true;
+        }
+    }
+
+    return false;
 }
