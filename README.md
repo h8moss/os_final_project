@@ -63,14 +63,16 @@ Al ejecutar `my_os`, serás recibido con una pantalla donde se pueden introducir
 
 ### Lista de comandos
 
-- exit                      - Exit the application
-- mkdir "path"              - Create a new directory
-- touch "path"              - Create a new file
-- ls "path"                 - List directory contents
-- cat "path"                - Display file contents
-- empty "path"              - Empty a file
-- append "path" "string"    - Append text to a file
-- rm "path"                 - Delete a file
-- rmdir "path"              - Delete an empty directory
-- meta "path"               - Display metadata
-- cd "path"                 - Change current directory to path
+- exit                      - Salir de la aplicacion
+- mkdir "path"              - Crear directorio
+- touch "path"              - Crear archivo o actualizar tiempo de edicion
+- ls "path"                 - Listar archivos en folder.
+- cat "path"                - Mostrar contenidos de un archivo
+- empty "path"              - Vaciar un archivo
+- append "path" "string"    - Agregar texto a un archivo
+- rm "path"                 - Quitar archivo
+- rmdir "path"              - Quitar directorio vacio
+- meta "path"               - Mostrar metadatos de un archivo
+- cd "path"                 - Cambiar de directorio actual
+- whoami                    - Imprime el usuario actual
+- login                     - Permite iniciar sesion con un nuevo usuario
