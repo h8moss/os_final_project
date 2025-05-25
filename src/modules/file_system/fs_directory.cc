@@ -2,8 +2,8 @@
 #include <memory>
 
 namespace FileSystem {
-Directory::Directory(const string &name, Directory *parent)
-    : Node(name, parent) {}
+Directory::Directory(const string &name, const string &owner, Directory *parent)
+    : Node(name, owner, parent) {}
 
 bool Directory::isDirectory() const { return true; }
 

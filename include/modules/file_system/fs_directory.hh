@@ -14,7 +14,8 @@ private:
   map<string, std::unique_ptr<Node>> children;
 
 public:
-  Directory(const string &name, Directory *parent = nullptr);
+  Directory(const string &name, const string &owner,
+            Directory *parent = nullptr);
 
   bool isDirectory() const override;
   size_t getSize() const override;

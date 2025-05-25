@@ -3,8 +3,8 @@
 
 namespace FileSystem {
 
-File::File(const string &name, Directory *parent)
-    : Node(name, parent), content{""} {}
+File::File(const string &name, const string &owner, Directory *parent)
+    : Node(name, owner, parent), content{""} {}
 
 bool File::isDirectory() const { return false; }
 

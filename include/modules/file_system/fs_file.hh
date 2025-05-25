@@ -7,7 +7,7 @@ private:
   string content;
 
 public:
-  File(const string &name, Directory *parent = nullptr);
+  File(const string &name, const string &owner, Directory *parent = nullptr);
   bool isDirectory() const override;
   size_t getSize() const override;
   string read() const;

@@ -12,12 +12,13 @@ class Directory; // Directory forward declaration
 class Node {
 protected:
   Directory *parent;
+  string owner;
 
 public:
   string name;
   Metadata metadata;
 
-  Node(const string &name, Directory *parent);
+  Node(const string &name, const string &owner, Directory *parent);
 
   virtual ~Node() = default;
   virtual bool isDirectory() const = 0;
@@ -25,5 +26,7 @@ public:
 
   Directory *getParent() const;
   void setParent(Directory *newParent);
+
+  string getOwner() const;
 };
 } // namespace FileSystem
