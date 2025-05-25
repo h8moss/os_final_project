@@ -1,5 +1,7 @@
 #include "modules/file_system/file_system_module.hh"
+#include "modules/file_system/fs_directory.hh"
 #include "modules/file_system/fs_file.hh"
+#include "modules/usuarios/usuarios.h"
 #include <algorithm>
 #include <memory>
 
@@ -48,7 +50,12 @@ Node *FileSystem::resolvePath(const string &path) {
 }
 
 FileSystem::FileSystem() {
-  root = std::make_unique<Directory>("");
+  root = std::make_unique<Directory>("", "");
+
+  for (auto u : usuarios) {
+    root->addChild(std::make_unique<Directory>(u.nombre, u.nombre));
+  }
+
   currentDir = root.get();
 }
 
@@ -88,7 +95,13 @@ bool FileSystem::mkdir(const string &path) {
   if (!parent || !parent->isDirectory())
     return false;
 
-  return parent->addChild(std::make_unique<Directory>(dirName, parent));
+  if (!verificar_permiso(parent->getOwner(), "escritura",
+                         get_current_user()->nombre)) {
+    return false;
+  }
+
+  return parent->addChild(
+      std::make_unique<Directory>(dirName, get_current_user()->nombre, parent));
 }
 
 bool FileSystem::touch(const string &path) {
@@ -105,7 +118,13 @@ bool FileSystem::touch(const string &path) {
   if (!parent || !parent->isDirectory())
     return false;
 
-  return parent->addChild(std::make_unique<File>(fileName, parent));
+  if (!verificar_permiso(parent->getOwner(), "escritura",
+                         get_current_user()->nombre)) {
+    return false;
+  }
+
+  return parent->addChild(
+      std::make_unique<File>(fileName, get_current_user()->nombre, parent));
 }
 
 vector<string> FileSystem::ls(const string &path) {
@@ -126,6 +145,11 @@ string FileSystem::cat(const string &path) {
   if (!node || node->isDirectory())
     return "";
 
+  if (!verificar_permiso(node->getOwner(), "lectura",
+                         get_current_user()->nombre)) {
+    return "Permission required";
+  }
+
   File *file = static_cast<File *>(node);
   return file->read();
 }
@@ -134,6 +158,11 @@ bool FileSystem::empty(const string &path) {
   Node *node = resolvePath(path);
   if (!node || node->isDirectory())
     return false;
+
+  if (!verificar_permiso(node->getOwner(), "escritura",
+                         get_current_user()->nombre)) {
+    return false;
+  }
 
   File *file = static_cast<File *>(node);
   file->empty();
@@ -144,6 +173,11 @@ bool FileSystem::append(const string &path, const string &content) {
   Node *node = resolvePath(path);
   if (!node || node->isDirectory())
     return false;
+
+  if (!verificar_permiso(node->getOwner(), "escritura",
+                         get_current_user()->nombre)) {
+    return false;
+  }
 
   File *file = static_cast<File *>(node);
   file->append(content);
@@ -164,6 +198,11 @@ bool FileSystem::rm(const string &path) {
   if (!parent || !parent->isDirectory())
     return false;
 
+  if (!verificar_permiso(parent->getOwner(), "escritura",
+                         get_current_user()->nombre)) {
+    return false;
+  }
+
   return parent->removeChild(fileName);
 }
 
@@ -179,6 +218,11 @@ bool FileSystem::rmdir(const string &path) {
   Directory *parent = dir->getParent();
   if (!parent)
     return false; // Can't remove root
+
+  if (!verificar_permiso(parent->getOwner(), "escritura",
+                         get_current_user()->nombre)) {
+    return false;
+  }
 
   return parent->removeChild(dir->name);
 }
