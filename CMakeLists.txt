@@ -1,26 +1,9 @@
-# Basic cmake config
 cmake_minimum_required(VERSION 3.10)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+project(SO)
 
-# Project
-project(my_os VERSION 1.0.0)
+set(CMAKE_C_STANDARD 11)
 
-# Include
-include_directories(
-  ./include
+add_executable(SO
+    main.c
+    usuarios.c
 )
-
-# Sources
-set(SOURCES 
-  ./src/modules/file_system/file_system_module.cc
-  ./src/modules/file_system/fs_directory.cc
-  ./src/modules/file_system/fs_file.cc
-  ./src/modules/file_system/fs_node.cc
-  ./src/main.cc
-  ./src/program.cc
-)
-
-# Executable
-add_executable(my_os ${SOURCES})
-
