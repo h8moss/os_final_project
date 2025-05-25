@@ -1,4 +1,8 @@
 #include "program.hh"
+#include "modules/usuarios/usuarios.h"
+#include <ios>
+#include <limits>
+#include <ostream>
 
 vector<string> Program::tokenize(const string &input) const {
   vector<string> tokens;
@@ -26,7 +30,12 @@ vector<string> Program::tokenize(const string &input) const {
 }
 
 void Program::run() {
+  while (usuario_actual == -1) {
+    login();
+  }
+
   cout << "Type 'exit' to quit." << endl;
+  cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
   while (true) {
     cout << fs.getCurrentPath() << "> ";
@@ -80,6 +89,11 @@ void Program::run() {
         fs.printMetadata(tokens[1]);
       } else if (command == "cd" && tokens.size() > 1) {
         fs.cd(tokens[1]);
+      } else if (command == "login") {
+        login();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      } else if (command == "whoami") {
+        cout << "User: " << get_current_user()->nombre << '\n';
       } else {
         cout << "Unknown command or invalid arguments" << endl;
       }
